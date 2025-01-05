@@ -1,4 +1,4 @@
-package chapter2.ch2_ex2.config;
+package chapter2.ch2_ex5.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -10,15 +10,18 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 
 @Configuration
-public class ProjectConfig {
+public class UserManagementConfig {
     @Bean
     UserDetailsService userDetailsService() {
-        UserDetails userDetails = User.withUsername("user")
-                                        .password("12345")
-                                        .authorities("read")
-                                        .build();
+        var userDetailsService = new InMemoryUserDetailsManager();
 
-        return new InMemoryUserDetailsManager(userDetails);
+        UserDetails user = User.withUsername("user")
+                                .password("12345")
+                                .authorities("read")
+                                .build();
+
+        userDetailsService.createUser(user);
+        return userDetailsService;
     }
 
     @Bean
