@@ -10,9 +10,10 @@ import org.springframework.security.web.SecurityFilterChain;
 public class WebAuthorizationConfig {
     @Bean
     SecurityFilterChain configure(HttpSecurity http) throws Exception{
-        http.httpBasic(Customizer.withDefaults());
+        http.httpBasic(Customizer.withDefaults()); // using HTTP Basic to authenticate
 
         http.authorizeHttpRequests(
+            // Make sure that any request must be authenticated
             c -> c.anyRequest().authenticated()
         );
 
